@@ -12,7 +12,8 @@ import java.util.Scanner;
  * @author reality
  */
 public class MyUtil {
-
+    public static final boolean MODE_APPEND = true;
+    public static final boolean MODE_OVERRIDE = false;
     private static Scanner sc = new Scanner(System.in);
     
     // Hàm xử lý việc nhập dữ liệu là chuỗi ký tự,
@@ -52,5 +53,30 @@ public class MyUtil {
         }
         
     }
+    
+    // Nhập vào một chuỗi kí tự theo định dạng đc đưa vào
+    // định dạng xài Regular Expression
+    public static String getID (String inputMsg, String errorMSg, String format){
+        String id;
+        boolean match;
+        while (true) {
+            System.out.print(inputMsg);
+            id = sc.nextLine().trim().toUpperCase();
+            match = id.matches(format);
+            if (id.length() == 0 || id.isEmpty() || match == false)
+                System.out.println(errorMSg);
+            else
+                return id;            
+        }
+        
+    }
+    public static void main(String[] args) {
+        String id = getID("Input ID(DXXXXX): ", "Your input must be under "
+                + "the format of DXXXXX, X stands for a digit",
+                "^[D|d]\\d{5}$");
+        System.out.println("Your ID: " + id);
+    }
+    
+    
 
 }

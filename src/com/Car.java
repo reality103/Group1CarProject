@@ -9,7 +9,8 @@ package com;
  *
  * @author reality
  */
-public class Car {
+public class Car implements Comparable<Car> {
+
     String carID;
     Brand brand;
     String color;
@@ -33,6 +34,7 @@ public class Car {
 
     public void setCarID(String carID) {
         this.carID = carID;
+
     }
 
     public Brand getBrand() {
@@ -70,11 +72,23 @@ public class Car {
     @Override
     public String toString() {
         return "<" + carID + ", " + brand.getBrandID() + ", " + color + ", " + frameID
-                            + ", " + engineID + ">";
+                + ", " + engineID + ">";
     }
-    
-   public String screenString(){
-       return String.format("<%s, \n %s, %s, %s, %s>", brand.showProfileBrand(), carID, color,frameID, engineID);
-   }
 
+    public String screenString() {
+        return String.format("<%s, \n %s, %s, %s, %s>", brand.showProfileBrand(), carID, color, frameID, engineID);
+    }
+
+    @Override
+    public int compareTo(Car o) {
+        int d = this.brand.getBrandName().compareToIgnoreCase(o.brand.getBrandName());
+        if (d != 0) 
+            return d;
+            else
+            return this.carID.compareToIgnoreCase(o.carID);
+        
+
+    
+
+}
 }

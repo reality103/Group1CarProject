@@ -12,13 +12,17 @@ package com;
 
   
 
-public class Brand {
+public class Brand implements Comparable<Brand>{
     private String brandID;
     private String brandName;
     private String soundBrand;
     private double price;
-
     
+    // Hàm khởi tạo không tham số
+    public Brand() {
+    }
+
+    // Hàm khởi tạo có tham số truyền vào
     public Brand(String brandID, String brandName, String soundBrand, double price) {
         this.brandID = brandID;
         this.brandName = brandName;
@@ -26,7 +30,7 @@ public class Brand {
         this.price = price;
     }
 
-    
+    // Hàm Getter và Setter
     public String getBrandID() {
         return brandID;
     }
@@ -59,15 +63,25 @@ public class Brand {
     public void setPrice(double price) {
         this.price = price;
     }
-
+    
+    
+    // Hàm ToString
+    
     @Override
     public String toString() {
         return "<" + brandID + ", " + brandName + ", " + soundBrand + ": " + price + ">";
     }
     
     public String showProfileBrand() {
-        return  brandID + ", " + brandName + ", " + soundBrand + ": " + price ;
+        
+        return brandID + ", " + brandName + ", " + soundBrand + ": " + price;
     }
+
+    @Override
+    public int compareTo(Brand o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
 }
     
 

@@ -4,6 +4,7 @@ import java.util.*;
 import java.io.*;
 import java.lang.*;
 import util.MyUtil;
+
 public class BrandList {
 
     private ArrayList<Brand> brandList = new ArrayList<Brand>();
@@ -11,6 +12,7 @@ public class BrandList {
     public BrandList() {
     }
 
+    // Hàm đọc dữ liệu từ file txt và thêm vào danh sách Brand
     public boolean loadFromFile(String filename) {
         File f = new File(filename);
         if (!f.exists()) {
@@ -27,32 +29,40 @@ public class BrandList {
                 line = line.trim();
 
                 if (line.length() > 0) {
-                    StringTokenizer stk = new StringTokenizer(line, ",:");
+                    StringTokenizer stk = new StringTokenizer(line, "<,:>");
                     String brandID = stk.nextToken().trim();
                     String brandName = stk.nextToken().trim();
                     String soundBrand = stk.nextToken().trim();
-                    double price = Double.parseDouble(stk.nextToken().trim());
+                    double price = Double.parseDouble(stk.nextToken());
                     brandList.add(new Brand(brandID, brandName, soundBrand, price));
 
                 }
 
             }
-            br.close(); fr.close();
+            br.close();
+            fr.close();
 
         } catch (IOException e) {
-            System.out.println("FAILED");
-            
+            System.out.println("LOAD FAILED");
+
         }
+
         return true;
 
     }
 
+    // Hàm lưu vào file txt
     public boolean saveToFile(String filename) {
-        try (PrintWriter pw = new PrintWriter(new FileWriter(filename))) {
+        boolean writeMode = MyUtil.MODE_OVERRIDE;
+        try (PrintWriter pw = new PrintWriter(new FileWriter(filename, writeMode))) {
             for (Brand brand : brandList) {
                 pw.println(brand.toString());
             }
+            pw.flush();
+            pw.close();
+
             return true;
+
         } catch (IOException e) {
             return false;
         }
@@ -84,8 +94,9 @@ public class BrandList {
     }
 
     public Brand getUserChoice() {
+        Menu mnu = new Menu();
+        return (Brand) mnu.ref_getChoice(brandList);
 
-        return null;
     }
 
     public void addBrand() {
@@ -143,7 +154,7 @@ public class BrandList {
 
     public void listBrand() {
         if (brandList.isEmpty()) {
-            System.out.println("The brand list is empty");
+            System.out.println("THE BRAND LIST IS EMPTY");
         }
         for (int i = 0; i < brandList.size(); i++) {
             System.out.println(brandList.get(i));
@@ -153,9 +164,14 @@ public class BrandList {
     }
 
     public Brand getBrand(int brandPos) {
-    if (brandPos >= 0 && brandPos < brandList.size()) {
-        return brandList.get(brandPos);
-    } else {
-        return null; // Hoặc bạn có thể xử lý tùy thuộc vào logic ứng dụng của bạn
-    }
-}}
+        if (brandPos >= 0 && brandPos < brandList.size()) {
+            return brandList.get(brandPos);
+        }
+            else
+        {
+            return null;
+        }
+    
+
+        }
+}
