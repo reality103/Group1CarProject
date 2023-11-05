@@ -1,35 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.StringTokenizer;
+import java.util.*;
+import java.io.*;
+import java.lang.*;
 import util.MyUtil;
-
-/**
- *
- * @author reality
- */
 public class BrandList {
 
     private ArrayList<Brand> brandList = new ArrayList<Brand>();
-
-    public ArrayList<Brand> getBrandList() {
-        return brandList;
-    }
-    
-    
-    
-    
 
     public BrandList() {
     }
@@ -77,7 +54,6 @@ public class BrandList {
             }
             return true;
         } catch (IOException e) {
-            System.out.println("FAILED");
             return false;
         }
     }
@@ -93,7 +69,6 @@ public class BrandList {
             }
 
         }
-        
 
         return -1;
     }
@@ -108,10 +83,10 @@ public class BrandList {
 
     }
 
-//    public Brand getUserChoice() {
-//
-//        return null;
-//    }
+    public Brand getUserChoice() {
+
+        return null;
+    }
 
     public void addBrand() {
         String brandID;
@@ -177,4 +152,10 @@ public class BrandList {
 
     }
 
-}
+    public Brand getBrand(int brandPos) {
+    if (brandPos >= 0 && brandPos < brandList.size()) {
+        return brandList.get(brandPos);
+    } else {
+        return null; // Hoặc bạn có thể xử lý tùy thuộc vào logic ứng dụng của bạn
+    }
+}}
